@@ -129,7 +129,7 @@ Alternative layout and mapping options are given in the documentation in the for
 
 ****** alphas
 
-Select an alternative alphas layout, e.g. ~colemak~, ~dvorak~, ~halmak~, ~qwerty~.  For Colemak Mod-DH, leave as ~default~.
+Select an alternative alphas layout, e.g. ~colemak~, ~dvorak~, ~graphite~, ~halmak~, ~qwerty~.  For Colemak Mod-DH, leave as ~default~.  This fork also adds ~graphite~, which is not part of upstream Miryoku.
 
 
 ****** nav
@@ -178,6 +178,17 @@ Select an alternative clipboard type, e.g. ~mac~, ~win~.  For CUA bindings, leav
 ****** kconfig
 
 Appends to [[#kconfig-configuration][Kconfig configuration]].  Join multiple lines with ~\n~.  For no additional config, leave as ~default~.
+
+
+****** snippet
+
+Used to build with a Zephyr/ZMK snippet, e.g. ~studio-rpc-usb-uart~ to enable [[https://zmk.dev/docs/features/studio][ZMK Studio]] over USB.
+
+Multiple space separated snippets can be specified.
+
+For split keyboards, only apply this to the central/left side build; do not apply it to the peripheral/right side.
+
+For no changes, leave as ~default~.
 
 
 ****** branches

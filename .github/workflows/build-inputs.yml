@@ -24,6 +24,7 @@ on:
         - "Colemak"
         - "ColemakDHK"
         - "Dvorak"
+        - "Graphite"
         - "Halmak"
         - "QWERTY"
         - "QWERTZ"
@@ -57,6 +58,10 @@ on:
         description: 'kconfig'
         required: false
         default: 'default'
+      snippet:
+        description: 'snippet'
+        required: false
+        default: 'default'
       branches:
         description: 'branches'
         required: false
@@ -77,6 +82,7 @@ jobs:
       mapping: ${{ steps.process-inputs.outputs.mapping }}
       custom_config: ${{ steps.process-inputs.outputs.custom_config }}
       kconfig: ${{ steps.process-inputs.outputs.kconfig }}
+      snippet: ${{ steps.process-inputs.outputs.snippet }}
       branches: ${{ steps.process-inputs.outputs.branches }}
       modules: ${{ steps.process-inputs.outputs.modules }}
     steps:
@@ -96,6 +102,7 @@ jobs:
           set-output "mapping" "${{ github.event.inputs.mapping }}"
           set-output "custom_config" "${{ github.event.inputs.custom_config }}"
           set-output "kconfig" "${{ github.event.inputs.kconfig }}"
+          set-output "snippet" "${{ github.event.inputs.snippet }}"
           set-output "branches" "${{ github.event.inputs.branches }}"
           set-output "modules" "${{ github.event.inputs.modules }}"
   build:
@@ -111,5 +118,6 @@ jobs:
       mapping: ${{ needs.process-inputs.outputs.mapping }}
       custom_config: ${{ needs.process-inputs.outputs.custom_config }}
       kconfig: ${{ needs.process-inputs.outputs.kconfig }}
+      snippet: ${{ needs.process-inputs.outputs.snippet }}
       branches: ${{ needs.process-inputs.outputs.branches }}
       modules: ${{ needs.process-inputs.outputs.modules }}

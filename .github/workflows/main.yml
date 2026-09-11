@@ -38,6 +38,9 @@ on:
       kconfig:
         type: string
         default: '["default"]'
+      snippet:
+        type: string
+        default: '["default"]'
       branches:
         type: string
         default: '["default"]'
@@ -65,6 +68,7 @@ jobs:
         mapping: ${{ fromJSON(inputs.mapping) }}
         custom_config: ${{ fromJSON(inputs.custom_config) }}
         kconfig: ${{ fromJSON(inputs.kconfig) }}
+        snippet: ${{ fromJSON(inputs.snippet) }}
         branches: ${{ fromJSON(inputs.branches) }}
         modules: ${{ fromJSON(inputs.modules) }}
     env:
@@ -144,6 +148,13 @@ jobs:
             run_name="$run_name kconfig_"`echo "${{ matrix.kconfig }}" | md5sum | head -c "$hash_length"`
           fi
 
+          if [ -n "${{ matrix.snippet }}" -a "${{ matrix.snippet }}" != 'default' ]
+          then
+            snippet_arg="-S ${{ matrix.snippet }}"
+            run_name="$run_name snippet_"`echo "${{ matrix.snippet }}" | md5sum | head -c "$hash_length"`
+          fi
+          echo "snippet_arg=$snippet_arg" >> $GITHUB_OUTPUT
+
           if [ -n "${{ matrix.branches }}" -a "${{ matrix.branches }}" != 'default' ]
           then
             run_name="$run_name branches_"`echo "${{ matrix.branches }}" | md5sum | head -c "$hash_length"`
@@ -174,6 +185,7 @@ jobs:
           mapping: '${{ matrix.mapping }}'
           custom_config: '${{ matrix.custom_config }}'
           kconfig: '${{ matrix.kconfig }}'
+          snippet: '${{ matrix.snippet }}'
           branches: '${{ matrix.branches }}'  
           modules: '${{ matrix.modules }}'
           " > "$matrix_file"
@@ -326,7 +338,7 @@ jobs:
           EX_DATAERR='65'
           cd "${GITHUB_WORKSPACE}/zmk/app"
           {
-            west $west_debug build -b ${{ matrix.board }} $west_build_debug -- ${{ steps.main.outputs.shield_arg }} ${{ steps.main.outputs.modules_arg }} -DZMK_CONFIG="${GITHUB_WORKSPACE}/miryoku_zmk/config" ||
+            west $west_debug build -b ${{ matrix.board }} $west_build_debug ${{ steps.main.outputs.snippet_arg }} -- ${{ steps.main.outputs.shield_arg }} ${{ steps.main.outputs.modules_arg }} -DZMK_CONFIG="${GITHUB_WORKSPACE}/miryoku_zmk/config" ||
             echo "$build_failed_message $?." ;
           } 2>&1 | tee "$log"
           if grep -q 'Invalid BOARD; see above.' "$log"
