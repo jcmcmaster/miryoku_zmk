@@ -45,7 +45,7 @@ U_NP,              U_NP,              U_LT(U_FUN, DEL),  U_LT(U_NUM, BSPC), U_LT
 #define MIRYOKU_ALTERNATIVES_BASE_GRAPHITE_FLIP \
 &kp B,             &kp L,             &kp D,             &kp W,             &kp Z,             &u_gr_sqt,         &kp F,             &kp O,             &kp U,             &kp J,             \
 U_MT(LGUI, N),     U_MT(LALT, R),     U_MT(LCTRL, T),    U_MT(LSHFT, S),    &kp G,             &kp Y,             U_MT(LSHFT, H),    U_MT(LCTRL, A),    U_MT(LALT, E),     U_MT(LGUI, I),     \
-U_LT(U_BUTTON, Q), U_MT(RALT, X),     &kp M,             &kp C,             &kp V,             &kp K,             &kp P,             &kp DOT,           &u_gr_minus_ht,    &u_gr_slash_ht,    \
+U_LT(U_BUTTON, Q), U_MT(RALT, X),     &kp M,             &kp C,             &kp V,             &kp K,             &kp P,             &kp DOT,           &u_gr_minus_ht RALT 0, &u_gr_slash_ht U_BUTTON 0,\
 U_NP,              U_NP,              U_LT(U_FUN, DEL),  U_LT(U_NUM, BSPC), U_LT(U_SYM, RET),  U_LT(U_MOUSE, TAB),U_LT(U_NAV, SPACE),U_LT(U_MEDIA, ESC),U_NP,              U_NP
 
 #define MIRYOKU_ALTERNATIVES_BASE_HALMAK_FLIP \
@@ -111,7 +111,7 @@ U_NP,              U_NP,              U_LT(U_MEDIA, ESC),U_LT(U_NAV, SPACE),U_LT
 #define MIRYOKU_ALTERNATIVES_BASE_GRAPHITE \
 &kp B,             &kp L,             &kp D,             &kp W,             &kp Z,             &u_gr_sqt,         &kp F,             &kp O,             &kp U,             &kp J,             \
 U_MT(LGUI, N),     U_MT(LALT, R),     U_MT(LCTRL, T),    U_MT(LSHFT, S),    &kp G,             &kp Y,             U_MT(LSHFT, H),    U_MT(LCTRL, A),    U_MT(LALT, E),     U_MT(LGUI, I),     \
-U_LT(U_BUTTON, Q), U_MT(RALT, X),     &kp M,             &kp C,             &kp V,             &kp K,             &kp P,             &kp DOT,           &u_gr_minus_ht,    &u_gr_slash_ht,    \
+U_LT(U_BUTTON, Q), U_MT(RALT, X),     &kp M,             &kp C,             &kp V,             &kp K,             &kp P,             &kp DOT,           &u_gr_minus_ht RALT 0, &u_gr_slash_ht U_BUTTON 0,\
 U_NP,              U_NP,              U_LT(U_MEDIA, ESC),U_LT(U_NAV, SPACE),U_LT(U_MOUSE, TAB),U_LT(U_SYM, RET),  U_LT(U_NUM, BSPC), U_LT(U_FUN, DEL),  U_NP,              U_NP
 
 #define MIRYOKU_ALTERNATIVES_BASE_HALMAK \
