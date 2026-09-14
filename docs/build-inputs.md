@@ -16,7 +16,6 @@ CONFIG_ZMK_POINTING=y
 
 This is a Zephyr Kconfig flag, not a Miryoku `#define` — it must be supplied per build via
 the `kconfig` input (see below), or in `config/<board_or_shield>.conf` for local builds.
-`scripts/trigger-build.sh` sets this by default; pass `--no-mouse` to omit it.
 
 ## ZMK Studio snippet
 
@@ -27,9 +26,6 @@ This fork adds ZMK Studio snippet build support (`snippet` input, e.g.
 CONFIG_ZMK_STUDIO=y
 CONFIG_ZMK_STUDIO_LOCKING=n
 ```
-
-`scripts/trigger-build.sh --studio` sets both of those in `kconfig` and defaults `snippet`
-to `studio-rpc-usb-uart`.
 
 ## Build Inputs workflow field reference
 
@@ -70,22 +66,21 @@ Multiple `kconfig` lines: put a real newline in the value (the GitHub UI form an
 
 ## Triggering a run
 
-Use `scripts/trigger-build.sh` (wraps `gh workflow run build-inputs.yml`, resolves the
-triggered run, and prints its URL):
+`scripts/trigger-build.sh` calls `gh workflow run build-inputs.yml` with exactly this
+fork's build options — `board=nice_nano//zmk`, `alphas=Graphite`, and the
+`CONFIG_ZMK_POINTING=y` / `CONFIG_ZMK_STUDIO=y` / `CONFIG_ZMK_STUDIO_LOCKING=n` kconfig
+combo — then prints the triggered run's URL. It takes no flags; edit the values at the
+top of the script if board/alphas/kconfig ever change.
 
 ```
-scripts/trigger-build.sh --board nice_nano//zmk --shield corne_left,corne_right --alphas Graphite
-scripts/trigger-build.sh --board nice_nano//zmk --shield corne_left --studio --watch
+scripts/trigger-build.sh
 ```
 
-Or trigger manually:
+Equivalent manual call:
 
 ```
 gh workflow run build-inputs.yml \
   -f board=nice_nano//zmk \
-  -f shield=corne_left,corne_right \
   -f alphas=Graphite \
-  -f kconfig='CONFIG_ZMK_POINTING=y'
+  -f kconfig=$'CONFIG_ZMK_POINTING=y\nCONFIG_ZMK_STUDIO=y\nCONFIG_ZMK_STUDIO_LOCKING=n'
 ```
-
-Then watch it with `gh run watch` (`--watch` on the script does this for you).
