@@ -28,6 +28,8 @@ MIRYOKU_LAYER_LIST
 
 #include "miryoku_shift_functions.dtsi"
 
+#include "miryoku_alphas_graphite.dtsi"
+
 #include "miryoku_double_tap_guard.dtsi"
 
 #include "miryoku_mousekeys.dtsi"

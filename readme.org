@@ -577,6 +577,13 @@ Requires ~CONFIG_ZMK_COMBO_MAX_COMBOS_PER_KEY=16~ [[#kconfig-configuration][Kcon
 On each hand, combo the primary and secondary thumb keys to emulate the tertiary thumb key.  Requires suitable keycaps to enable the thumb to press both keys simultaneously.
 
 
+*** Graphite Punctuation and Comma
+
+Fork addition, not part of upstream Miryoku.
+
+~MIRYOKU_ALPHAS_GRAPHITE~ corrects three shifted punctuation keys to match [[https://github.com/rdavison/graphite-layout][canonical Graphite]] (~'~/~-~/~/~ shift to ~_~/~"~/~<~ instead of the HID default ~"~/~_~/~?~), and adds Graphite's comma via a combo on the right pinky's top- and home-row keys (J held with I), since Miryoku's fixed 5+5 grid has no spare column for it. Both are automatic whenever ~alphas~ is ~graphite~. The comma combo additionally requires the board's mapping header to define ~MIRYOKU_GRAPHITE_COMMA_POSITIONS~; currently only ~42/corne~ does.
+
+
 *** Mouse Keys
 
 [[https://zmk.dev/docs/behaviors/mouse-emulation][ZMK supports mouse keys]].

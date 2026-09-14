@@ -1,0 +1,60 @@
+// Fork addition, not part of upstream Miryoku.
+// https://github.com/manna-harbour/miryoku_zmk
+
+// Fixes MIRYOKU_ALPHAS_GRAPHITE so its shifted punctuation and its 31st
+// character (comma) match https://github.com/rdavison/graphite-layout
+// instead of silently taking the HID/OS-default shift output, or being
+// dropped for lack of a spare column in Miryoku's fixed 5+5 grid.
+
+#if defined (MIRYOKU_ALPHAS_GRAPHITE)
+
+// Canonical Graphite reassigns these three shifted symbols away from the
+// HID/OS default. Shift+'.' already gives '>' by default, so it needs no
+// override.
+MIRYOKU_SHIFT_FUNCTION(u_gr_sqt,   &kp SQT,   &kp UNDER)
+MIRYOKU_SHIFT_FUNCTION(u_gr_minus, &kp MINUS, &kp DQT)
+MIRYOKU_SHIFT_FUNCTION(u_gr_slash, &kp SLASH, &kp LT)
+
+// MINUS and SLASH sit behind hold-taps (RALT mod-tap, U_BUTTON layer-tap)
+// whose tap side u_mt/u_lt hardcode to plain &kp. These dedicated
+// hold-taps let the tap side be the mod-morphs above instead.
+/ {
+  behaviors {
+    u_gr_minus_ht: u_gr_minus_ht {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <0>;
+      tapping-term-ms = <U_TAPPING_TERM>;
+      flavor = "tap-preferred";
+      bindings = <&kp RALT>, <&u_gr_minus>;
+    };
+    u_gr_slash_ht: u_gr_slash_ht {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <0>;
+      tapping-term-ms = <U_TAPPING_TERM>;
+      flavor = "tap-preferred";
+      bindings = <&mo U_BUTTON>, <&u_gr_slash>;
+    };
+  };
+};
+
+// Canonical Graphite has a 31st character, comma, one column outboard of
+// the right pinky home key -- a column Miryoku's fixed 5+5 grid doesn't
+// have. Chord the right pinky's top- and home-row keys (J/I) to emit it
+// instead of sacrificing a letter. Opt in per board by defining
+// MIRYOKU_GRAPHITE_COMMA_POSITIONS in its mapping header (see
+// mapping/42/corne.h).
+#if defined (MIRYOKU_GRAPHITE_COMMA_POSITIONS)
+/ {
+  combos {
+    compatible = "zmk,combos";
+    graphite_comma {
+      layers = <U_BASE>;
+      key-positions = <MIRYOKU_GRAPHITE_COMMA_POSITIONS>;
+      bindings = <&kp COMMA>;
+      timeout-ms = <50>;
+    };
+  };
+};
+#endif
+
+#endif
