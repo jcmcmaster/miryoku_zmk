@@ -85,3 +85,8 @@ preference:
   layout tables exactly; don't reformat surrounding macros while touching one.
 - `readme.org` — Emacs org-mode markup (`*`/`**` headings, `[[link][text]]`, `~code~`), not
   Markdown.
+
+## Git workflow
+
+- Never push directly to `master` unless explicitly asked to. Default to a feature branch
+  and a PR, even for small/follow-up fixes.
