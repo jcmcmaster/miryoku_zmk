@@ -29,6 +29,10 @@ XXX  K20  K21  K22  K23  K24       K25  K26  K27  K28  K29  XXX \
 #define MIRYOKU_KLUDGE_THUMBCOMBOS_LEFT 37 38
 #define MIRYOKU_KLUDGE_THUMBCOMBOS_RIGHT 39 40
 
+// MIRYOKU_ALPHAS_GRAPHITE comma combo (see miryoku_alphas_graphite.dtsi):
+// right pinky top row (J) + home row (I).
+#define MIRYOKU_GRAPHITE_COMMA_POSITIONS 10 22
+
 
 #endif
 
