@@ -22,17 +22,17 @@ MIRYOKU_SHIFT_FUNCTION(u_gr_slash, &kp SLASH, &kp LT)
   behaviors {
     u_gr_minus_ht: u_gr_minus_ht {
       compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <0>;
+      #binding-cells = <2>;
       tapping-term-ms = <U_TAPPING_TERM>;
       flavor = "tap-preferred";
-      bindings = <&kp RALT>, <&u_gr_minus>;
+      bindings = <&kp>, <&u_gr_minus>;
     };
     u_gr_slash_ht: u_gr_slash_ht {
       compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <0>;
+      #binding-cells = <2>;
       tapping-term-ms = <U_TAPPING_TERM>;
       flavor = "tap-preferred";
-      bindings = <&mo U_BUTTON>, <&u_gr_slash>;
+      bindings = <&mo>, <&u_gr_slash>;
     };
   };
 };
