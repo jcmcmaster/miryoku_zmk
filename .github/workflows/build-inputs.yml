@@ -91,7 +91,7 @@ jobs:
         run: |
           set-output()
           {
-            json=`printf '%s' "$2" | jq -Rs 'split(",")'`
+            json=`printf '%s' "$2" | jq -cRs 'split(",")'`
             echo "$1=$json" >> $GITHUB_OUTPUT
           }
           set-output "board" "${{ github.event.inputs.board }}"
