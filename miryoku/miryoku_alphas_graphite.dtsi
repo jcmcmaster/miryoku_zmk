@@ -46,18 +46,21 @@ MIRYOKU_SHIFT_FUNCTION(u_gr_slash, &kp SLASH, &kp LT)
 // have. Chord the right pinky's top- and home-row keys (J/I) to emit it
 // instead of sacrificing a letter. Opt in per board by defining
 // MIRYOKU_GRAPHITE_COMMA_POSITIONS in its mapping header (see
-// mapping/42/corne.h).
+// mapping/42/corne.h). Canonical Graphite shifts that same column to '?',
+// so shift-morph the combo the same way as the punctuation above instead
+// of falling through to the HID/OS default shift of ',' ('<').
 // The 31st-character comma combo only makes sense when Graphite is the base
 // layer -- it targets U_BASE, which is a different layer when Graphite is
 // only the extra alphas -- so keep this part scoped to MIRYOKU_ALPHAS_GRAPHITE.
 #if defined (MIRYOKU_ALPHAS_GRAPHITE) && defined (MIRYOKU_GRAPHITE_COMMA_POSITIONS)
+MIRYOKU_SHIFT_FUNCTION(u_gr_comma, &kp COMMA, &kp QMARK)
 / {
   combos {
     compatible = "zmk,combos";
     graphite_comma {
       layers = <U_BASE>;
       key-positions = <MIRYOKU_GRAPHITE_COMMA_POSITIONS>;
-      bindings = <&kp COMMA>;
+      bindings = <&u_gr_comma>;
       timeout-ms = <50>;
     };
   };
