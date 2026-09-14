@@ -66,21 +66,31 @@ Multiple `kconfig` lines: put a real newline in the value (the GitHub UI form an
 
 ## Triggering a run
 
-`scripts/trigger-build.sh` calls `gh workflow run build-inputs.yml` with exactly this
-fork's build options — `board=nice_nano//zmk`, `alphas=Graphite`, and the
+`scripts/trigger-build.sh` calls `gh workflow run build-inputs.yml` twice — once per
+split half — with this fork's build options: `board=nice_nano//zmk`, `alphas=Graphite`,
+and each half's `shield`. Only the left half also gets the
 `CONFIG_ZMK_POINTING=y` / `CONFIG_ZMK_STUDIO=y` / `CONFIG_ZMK_STUDIO_LOCKING=n` kconfig
-combo — then prints the triggered run's URL. It takes no flags; edit the values at the
-top of the script if board/alphas/kconfig ever change.
+combo and the `studio-rpc-usb-uart` snippet (Studio's USB-UART transport only needs to
+run on one half). Each run's URL is printed as it's triggered. The script takes no
+flags; edit the values at the top of the script if board/shields/alphas/kconfig ever
+change.
 
 ```
 scripts/trigger-build.sh
 ```
 
-Equivalent manual call:
+Equivalent manual calls:
 
 ```
 gh workflow run build-inputs.yml \
   -f board=nice_nano//zmk \
+  -f shield='corne_left nice_view_adapter nice_view' \
   -f alphas=Graphite \
-  -f kconfig=$'CONFIG_ZMK_POINTING=y\nCONFIG_ZMK_STUDIO=y\nCONFIG_ZMK_STUDIO_LOCKING=n'
+  -f kconfig=$'CONFIG_ZMK_POINTING=y\nCONFIG_ZMK_STUDIO=y\nCONFIG_ZMK_STUDIO_LOCKING=n' \
+  -f snippet=studio-rpc-usb-uart
+
+gh workflow run build-inputs.yml \
+  -f board=nice_nano//zmk \
+  -f shield='corne_right nice_view_adapter nice_view' \
+  -f alphas=Graphite
 ```

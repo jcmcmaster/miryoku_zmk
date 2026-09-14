@@ -6,7 +6,11 @@
 // instead of silently taking the HID/OS-default shift output, or being
 // dropped for lack of a spare column in Miryoku's fixed 5+5 grid.
 
-#if defined (MIRYOKU_ALPHAS_GRAPHITE)
+// MIRYOKU_ALTERNATIVES_BASE_GRAPHITE(_FLIP) is used for both the base alphas
+// (MIRYOKU_ALPHAS_GRAPHITE) and the extra alphas (MIRYOKU_EXTRA_GRAPHITE)
+// selectors (see miryoku_layer_selection.h), so the shift-functions and
+// hold-taps it references must be defined for either.
+#if defined (MIRYOKU_ALPHAS_GRAPHITE) || defined (MIRYOKU_EXTRA_GRAPHITE)
 
 // Canonical Graphite reassigns these three shifted symbols away from the
 // HID/OS default. Shift+'.' already gives '>' by default, so it needs no
@@ -43,7 +47,10 @@ MIRYOKU_SHIFT_FUNCTION(u_gr_slash, &kp SLASH, &kp LT)
 // instead of sacrificing a letter. Opt in per board by defining
 // MIRYOKU_GRAPHITE_COMMA_POSITIONS in its mapping header (see
 // mapping/42/corne.h).
-#if defined (MIRYOKU_GRAPHITE_COMMA_POSITIONS)
+// The 31st-character comma combo only makes sense when Graphite is the base
+// layer -- it targets U_BASE, which is a different layer when Graphite is
+// only the extra alphas -- so keep this part scoped to MIRYOKU_ALPHAS_GRAPHITE.
+#if defined (MIRYOKU_ALPHAS_GRAPHITE) && defined (MIRYOKU_GRAPHITE_COMMA_POSITIONS)
 / {
   combos {
     compatible = "zmk,combos";
